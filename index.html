@@ -446,12 +446,39 @@ $('#wp').onclick=()=>{$('#wp').hidden=true;$('#wq').hidden=false};
 $('#wn').onclick=()=>{$('#wq').hidden=true;$('#wp').hidden=false};
 $('#wy').onclick=()=>{store={};try{localStorage.removeItem(KEY)}catch(e){}upd();renderCol();$('#wq').hidden=true;$('#wp').hidden=false};
 upd();
-function result(){pot.classList.remove('stir');const th=[...new Set(sel.map(i=>ING[i].t))],pick=th[Math.floor(Math.random()*th.length)],L=PH[pick];
-const cap=s=>s[0].toUpperCase()+s.slice(1);
-$('#pn').textContent=nameOf(sel.slice().sort((a,b)=>a-b));
-const vi=Math.floor(Math.random()*L.length);$('#pp').innerHTML=fmt(L[vi]);view=false;$('#again').textContent='Un nuovo calderone';$('#nw').hidden=!saveP(sel,pick+':'+vi);
-$('.bt').style.setProperty('--pc','rgb('+avg()+')');$('#res').hidden=false;$('#again').focus();
-[196,233,277,330].forEach((f,k)=>{tone(f,1.8,'sine',.09,0,k*.35);tone(f*1.006,1.8,'sine',.05,0,k*.35)});tone(65,2.4,'sine',.2,0,0,200);hiss(1.6,.06,1400)}
+function result(){
+  pot.classList.remove('stir');
+  const sortedSel = sel.slice().sort((a,b)=>a-b);
+  const key = kOf(sortedSel);
+  
+  // Generatore deterministico basato sulla chiave univoca degli ingredienti
+  let hash = 0;
+  for (let i = 0; i < key.length; i++) {
+    hash = (hash << 5) - hash + key.charCodeAt(i);
+    hash |= 0;
+  }
+  const absHash = Math.abs(hash);
+  
+  // Selezione della categoria e della frase in modo fisso e univoco per combinazione
+  const th = [...new Set(sortedSel.map(i => ING[i].t))];
+  const pick = th[absHash % th.length];
+  const L = PH[pick];
+  const vi = absHash % L.length;
+  
+  $('#pn').textContent = nameOf(sortedSel);
+  $('#pp').innerHTML = fmt(L[vi]);
+  view = false;
+  $('#again').textContent = 'Un nuovo calderone';
+  $('#nw').hidden = !saveP(sortedSel, pick + ':' + vi);
+  
+  $('.bt').style.setProperty('--pc', 'rgb(' + avg() + ')');
+  $('#res').hidden = false;
+  $('#again').focus();
+  
+  [196,233,277,330].forEach((f,k)=>{tone(f,1.8,'sine',.09,0,k*.35);tone(f*1.006,1.8,'sine',.05,0,k*.35)});
+  tone(65,2.4,'sine',.2,0,0,200);
+  hiss(1.6,.06,1400);
+}
 function reset(){clearInterval(tm);clearTimeout(mt);droneOff();sel=[];busy=false;pot.classList.remove('stir');$('#res').hidden=true;btns.forEach(b=>{b.classList.remove('used');b.disabled=false});draw()}
 $('#rst').onclick=reset;$('#again').onclick=()=>{if(view){view=false;$('#res').hidden=true;$('#again').textContent='Un nuovo calderone'}else reset()};
 $('#snd').onclick=function(){muted=!muted;this.innerHTML=muted?'<svg viewBox="0 0 26 26"><path d="M3 10h4.500l6-5v16l-6-5H3z" fill="#f3e6bd"/><path d="M17.500 10l6 6M23.500 10l-6 6" stroke="#ff9230" stroke-width="2.600" stroke-linecap="round"/></svg>':'<svg viewBox="0 0 26 26"><path d="M3 10h4.500l6-5v16l-6-5H3z" fill="#f3e6bd"/><path d="M17 10q3 3 0 6M20 7q6 6 0 12" stroke="#f3e6bd" stroke-width="2.200" fill="none" stroke-linecap="round"/></svg>';this.setAttribute('aria-label',muted?'Riascolta i sussurri':'Silenzia i sussurri');if(!muted){au();bubble()}};
