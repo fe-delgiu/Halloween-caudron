@@ -3,27 +3,34 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="only light">
+<meta name="supported-color-schemes" content="light">
+<meta name="theme-color" content="#090514">
 <title>Il Calderone Sussurrante</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=New+Rocker&family=Special+Elite&display=swap">
 <style>
-:root{--n1:#241247;--n2:#090514;--pump:#ff8a1f;--moon:#f5eec8;--paper:#ecdcae;--ink:#2a1a0a;--mist:#b9a8e6;
+:root{color-scheme:only light;--f-main:'New Rocker',Georgia,serif;--f-text:'Special Elite','Courier New',monospace;--n1:#241247;--n2:#090514;--pump:#ff8a1f;--moon:#f5eec8;--paper:#ecdcae;--ink:#2a1a0a;--mist:#b9a8e6;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--n2:#090514}}
-:root[data-theme="dark"]{--n2:#090514}
+/* Palette già scura: in modalità notte i colori restano invariati (nessuna inversione automatica del browser) */
+@media (prefers-color-scheme:dark){:root{color-scheme:only light}}
+html{background:#090514}
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%}
-body{background:radial-gradient(ellipse at 60% 0%,var(--n1),var(--n2) 70%) #090514;color:var(--moon);font-family:'Cormorant Garamond',Georgia,serif;overflow-x:hidden;-webkit-user-select:none;user-select:none}
+body{background:radial-gradient(ellipse at 60% 0%,var(--n1),var(--n2) 70%) #090514;color:var(--moon);font-family:var(--f-text);overflow-x:hidden;-webkit-user-select:none;user-select:none}
+.stars{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.stars i{position:absolute;border-radius:50%;background:#f3e6bd}
+.stars b{position:absolute;background:#f3e6bd;clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%)}
+.app{position:relative;z-index:1}
 .app{min-height:100vh;min-height:100dvh;max-width:520px;margin:0 auto;display:flex;flex-direction:column;padding:0 12px 40px}
 header{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;padding:10px 0 0}
-.sub{margin:5px 0 0;font:italic 500 16px/1.25 'Cormorant Garamond',Georgia,serif;color:var(--mist);max-width:30ch}
-h1{font:400 clamp(24px,6.5vw,32px)/1 'Pirata One',Georgia,serif;margin:0;color:var(--pump);letter-spacing:.5px}
+.sub{margin:5px 0 0;font:400 13px/1.3 var(--f-text);color:var(--mist);max-width:30ch}
+h1{font:400 clamp(20px,5.5vw,26px)/1.15 var(--f-main);margin:0;color:var(--pump);letter-spacing:.5px}
 .tools{position:absolute;left:10px;top:10px;display:flex;flex-direction:row;gap:8px;z-index:10}
 .tools button{position:relative;width:42px;height:42px;border-radius:50%;border:0;background:#6a4399;box-shadow:0 4px 0 #4a2f78;padding:0;display:grid;place-items:center;cursor:pointer}
 .tools button:active{transform:translateY(3px);box-shadow:0 1px 0 #4a2f78}
 .tools svg{width:24px;height:24px}
 button:focus-visible{outline:3px solid var(--moon);outline-offset:2px}
 .scene{position:relative;flex:1;min-height:calc(min(100vw - 24px,496px)*.75);overflow:hidden}
-.sky{position:absolute;left:0;top:0;width:100%;height:60px;pointer-events:none;z-index:0}
 .bg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
 .moon{position:absolute;right:36%;top:5%;width:50px;height:50px;border-radius:50%;background:radial-gradient(circle at 68% 24%,#c3cace 0 5px,transparent 6px),radial-gradient(circle at 36% 62%,#c3cace 0 7px,transparent 8px),radial-gradient(circle at 60% 74%,#c3cace 0 4px,transparent 5px),#d9dfe3;box-shadow:inset -7px 5px 0 #c3cace,0 0 40px #d9dfe355}
 .zb{transform:translateY(44px);transition:transform .7s cubic-bezier(.3,1.5,.5,1)}
@@ -67,11 +74,11 @@ button:focus-visible{outline:3px solid var(--moon);outline-offset:2px}
 .fl:nth-child(2){animation-delay:.2s}
 @keyframes fire{to{transform:scaleY(1.25) scaleX(.9)}}
 .ctrl{min-height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center}
-#hint{margin:0;font-size:17px;font-style:italic;color:var(--mist)}
+#hint{margin:0;font-size:14px;color:var(--mist)}
 .row{display:flex;gap:8px;align-items:center;min-height:44px}
 .chip svg{width:32px;height:32px;display:block}
 .chip{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:#1e252d;border:0;box-shadow:0 4px 0 #0b0f14}
-.cta{font:700 18px 'Cormorant Garamond',Georgia,serif;min-height:46px;padding:0 24px 0 18px;border-radius:24px;border:0;background:#ff9230;color:#1e252d;box-shadow:0 4px 0 #d9630a;cursor:pointer;display:inline-flex;align-items:center}
+.cta{font:400 15px var(--f-text);min-height:46px;padding:0 24px 0 18px;border-radius:24px;border:0;background:#ff9230;color:#1e252d;box-shadow:0 4px 0 #d9630a;cursor:pointer;display:inline-flex;align-items:center}
 .cta::before{content:"\2605";color:#6a4399;margin-right:8px;font-size:20px}
 .cta:active{transform:translateY(3px);box-shadow:0 1px 0 #d9630a}
 .cta[hidden]{display:none}
@@ -89,27 +96,31 @@ button:focus-visible{outline:3px solid var(--moon);outline-offset:2px}
 #intro{position:fixed;inset:0;z-index:40;background:#090514e6;display:grid;place-items:center;padding:16px}
 #intro[hidden]{display:none}
 .card{position:relative;width:min(92vw,340px);background:#f3e6bd;color:#1e252d;border-radius:14px;overflow:hidden;text-align:center;animation:up .6s cubic-bezier(.2,1.2,.4,1)}
-.card h1{margin:0;padding:20px 62px 18px 20px;background:#6a4399;color:#f3e6bd;font:400 30px/1.05 'Pirata One',Georgia,serif;text-align:left;letter-spacing:0}
-.card p{margin:0;padding:18px 22px 4px;font:700 italic 20px/1.35 'Cormorant Garamond',Georgia,serif}
-.card .how{padding:10px 22px 24px;font:500 normal 17px/1.4 'Cormorant Garamond',Georgia,serif}
+.card h1{margin:0;padding:20px 56px 18px 18px;background:#6a4399;color:#f3e6bd;font:400 calc((min(92vw,340px) - 74px)/11.2)/1.2 var(--f-main);text-align:left;letter-spacing:0;white-space:nowrap}
+.card p{margin:0;padding:18px 22px 4px;font:400 16px/1.4 var(--f-text)}
+.card .how{padding:10px 22px 24px;font:400 14px/1.45 var(--f-text)}
+.card em{font-style:italic}
+#x{animation:pulsex 1.8s ease-out infinite}
+@keyframes pulsex{0%,100%{box-shadow:0 4px 0 #d9630a,0 0 0 0 #ff923000}15%{box-shadow:0 4px 0 #d9630a,0 0 0 0 #ff9230aa}75%{box-shadow:0 4px 0 #d9630a,0 0 0 10px #ff923000}}
+@media (prefers-reduced-motion:reduce){#x{animation:none}}
 .x{position:absolute;top:12px;right:12px;width:40px;height:40px;padding:0;border:0;border-radius:50%;background:#ff9230;box-shadow:0 4px 0 #d9630a;display:grid;place-items:center;cursor:pointer}
 .x:active{transform:translateY(3px);box-shadow:0 1px 0 #d9630a}
 .bd{position:absolute;top:-3px;right:-3px;width:14px;height:14px;border-radius:50%;background:#ff9230;box-shadow:0 2px 0 #d9630a}
 .bd[hidden]{display:none}
-.new{position:absolute;top:30px;right:-6px;z-index:2;background:#ff9230;color:#1e252d;font:700 15px 'Cormorant Garamond',Georgia,serif;padding:4px 12px;border-radius:12px;transform:rotate(8deg);box-shadow:0 3px 0 #d9630a}
+.new{position:absolute;top:30px;right:-6px;z-index:2;background:#ff9230;color:#1e252d;font:400 12px var(--f-text);padding:4px 12px;border-radius:12px;transform:rotate(8deg);box-shadow:0 3px 0 #d9630a}
 .new[hidden]{display:none}
 #col{position:fixed;inset:0;z-index:35;background:#090514f2;overflow:auto;padding:0 12px 40px}
 #col[hidden]{display:none}
 .cp{max-width:520px;margin:0 auto;padding-top:calc(12px + env(safe-area-inset-top,0px))}
 .ch{position:relative;background:#6a4399;border-radius:14px;padding:18px 62px 16px 18px}
-.ch h2{margin:0;color:#f3e6bd;font:400 26px/1.05 'Pirata One',Georgia,serif}
+.ch h2{margin:0;color:#f3e6bd;font:400 25px/1.15 var(--f-main)}
 .ch .x{top:50%;margin-top:-20px}
-#cn{margin:14px 0 8px;text-align:center;font:italic 500 18px 'Cormorant Garamond',Georgia,serif;color:var(--mist)}
+#cn{margin:14px 0 8px;text-align:center;font:400 14px var(--f-text);color:var(--mist)}
 .pbar{height:10px;border-radius:5px;background:#1e252d;overflow:hidden;margin-bottom:16px}
 #pb{height:100%;width:0;background:#ff9230;border-radius:5px}
 .wipe{margin-top:24px;text-align:center}
-.wipe p{margin:0 0 12px;font:italic 500 18px/1.35 'Cormorant Garamond',Georgia,serif;color:var(--mist)}
-.gb{font:700 16px 'Cormorant Garamond',Georgia,serif;min-height:44px;padding:0 20px;border-radius:22px;border:0;background:#2c1a4f;color:#f3e6bd;box-shadow:0 4px 0 #1b1033;cursor:pointer}
+.wipe p{margin:0 0 12px;font:400 14px/1.4 var(--f-text);color:var(--mist)}
+.gb{font:400 13px var(--f-text);min-height:44px;padding:0 20px;border-radius:22px;border:0;background:#2c1a4f;color:#f3e6bd;box-shadow:0 4px 0 #1b1033;cursor:pointer}
 .gb:active{transform:translateY(3px);box-shadow:0 1px 0 #1b1033}
 .gb.dng{background:#e8452c;color:#fff;box-shadow:0 4px 0 #a82a16}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
@@ -121,12 +132,12 @@ button:focus-visible{outline:3px solid var(--moon);outline-offset:2px}
 .sl i{display:flex;gap:2px;min-height:14px}
 .sl b{width:14px;height:14px;display:block}
 .sl b svg{width:14px;height:14px;display:block}
-.pl2{display:block;margin:18px auto 0;padding:10px;text-align:center;color:var(--mist);font:600 16px 'Cormorant Garamond',Georgia,serif;text-decoration:underline;text-underline-offset:3px}
-.pl{position:absolute;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));padding:12px;text-align:center;color:#f3e6bd;font:600 17px 'Cormorant Garamond',Georgia,serif;text-decoration:underline;text-underline-offset:3px}
+.pl2{display:block;margin:18px auto 0;padding:10px;text-align:center;color:var(--mist);font:400 13px var(--f-text);text-decoration:underline;text-underline-offset:3px}
+.pl{position:absolute;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));padding:12px;text-align:center;color:#f3e6bd;font:400 14px var(--f-text);text-decoration:underline;text-underline-offset:3px}
 #priv{position:fixed;inset:0;z-index:50;background:#090514f8;overflow:auto;padding:0 12px 40px}
 #priv[hidden]{display:none}
-.pt{padding:14px 4px;color:#f3e6bd;font:500 17px/1.5 'Cormorant Garamond',Georgia,serif;-webkit-user-select:text;user-select:text}
-.pt h3{margin:20px 0 6px;color:#ff9230;font:400 21px 'Pirata One',Georgia,serif}
+.pt{padding:14px 4px;color:#f3e6bd;font:400 14px/1.55 var(--f-text);-webkit-user-select:text;user-select:text}
+.pt h3{margin:20px 0 6px;color:#ff9230;font:400 21px/1.2 var(--f-main)}
 .pt p{margin:0 0 8px}
 .pt mark{background:#ff9230;color:#1e252d;border-radius:4px;padding:0 4px}
 #res{position:fixed;inset:0;z-index:45;background:#090514e6;display:grid;place-items:center;padding:16px;overflow:auto}
@@ -137,14 +148,15 @@ button:focus-visible{outline:3px solid var(--moon);outline-offset:2px}
 .bw>svg{grid-area:1/1;align-self:stretch;width:100%;height:100%;display:block;overflow:visible}
 .lq{fill:var(--pc,#84c26e)}
 .lab{grid-area:1/1;align-self:start;justify-self:center;width:72%;position:relative;margin:calc(var(--w)*.476) 0 calc(var(--w)*.07);background:#f3e6bd;border-radius:10px;overflow:hidden;text-align:center;color:#1e252d}
-.lab h2{margin:0;padding:8px 10px;background:#6a4399;color:#f3e6bd;font:400 22px/1.1 'Pirata One',Georgia,serif}
-.lab p small{display:block;margin-top:8px;font:600 normal 14px/1.2 'Cormorant Garamond',Georgia,serif;opacity:.75}
-.lab p{margin:0;padding:12px 12px 14px;font:700 italic 19px/1.3 'Cormorant Garamond',Georgia,serif}
+.lab h2{margin:0;padding:8px 10px;background:#6a4399;color:#f3e6bd;font:400 20px/1.15 var(--f-main)}
+.lab p small{display:block;margin-top:8px;font:400 11.5px/1.25 var(--f-text);opacity:.75}
+.lab p{margin:0;padding:12px 12px 14px;font:400 15px/1.35 var(--f-text)}
 .bt .cta{margin-top:20px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
+<div class="stars" id="stars" aria-hidden="true"></div>
 <div class="app">
 
 <main class="scene" id="scene">
@@ -153,9 +165,7 @@ button:focus-visible{outline:3px solid var(--moon);outline-offset:2px}
 <button id="rst" aria-label="Svuota il calderone" title="Svuota il calderone"><svg viewBox="0 0 26 26"><path d="M13 5a8 8 0 1 0 8 8" stroke="#f3e6bd" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M16 13h10l-5-7z" fill="#ff9230"/></svg></button>
 <button id="colb" aria-label="Apri il grimorio degli elisir" title="Il grimorio"><svg viewBox="0 0 26 26"><rect x="4" y="3" width="17" height="21" rx="3" fill="#f3e6bd"/><rect x="4" y="3" width="5" height="21" rx="2" fill="#ff9230"/><path d="M15 9l1.500 3 3 .5-2.200 2 .7 3.200-3-1.700-3 1.700.7-3.200-2.200-2 3-.5z" fill="#6a4399"/></svg><span class="bd" id="bd" hidden></span></button>
 </div>
-<svg class="sky" viewBox="0 0 400 60" preserveAspectRatio="xMidYMin slice" aria-hidden="true"><g fill="#f3e6bd" opacity=".85"><circle cx="34" cy="22" r="2"/><circle cx="98" cy="14" r="1.5"/><circle cx="165" cy="20" r="1.5"/><circle cx="232" cy="12" r="1.5"/><circle cx="298" cy="24" r="1.8"/><circle cx="362" cy="6" r="2"/><circle cx="150" cy="26" r="1.5"/><path d="M226 4 l1.5 4 4 1.5 -4 1.5 -1.5 4 -1.5 -4 -4 -1.5 4 -1.5z"/><path d="M46 30 l1.5 4 4 1.5 -4 1.5 -1.5 4 -1.5 -4 -4 -1.5 4 -1.5z"/></g></svg>
 <svg class="bg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
-<g fill="#f3e6bd" opacity=".85" transform="translate(0 -12)"><circle cx="190" cy="16" r="2"/><circle cx="150" cy="22" r="1.5"/><circle cx="262" cy="28" r="2"/><circle cx="300" cy="18" r="1.5"/><circle cx="334" cy="48" r="2"/><circle cx="372" cy="22" r="1.5"/><circle cx="120" cy="13" r="1.5"/><circle cx="228" cy="15" r="1.5"/><circle cx="396" cy="60" r="1.5"/><circle cx="280" cy="70" r="1.5"/><circle cx="10" cy="30" r="2"/><circle cx="60" cy="14" r="1.5"/><circle cx="100" cy="36" r="1.5"/><circle cx="350" cy="90" r="1.5"/><path d="M320 28 l1.5 4 4 1.5 -4 1.5 -1.5 4 -1.5 -4 -4 -1.5 4 -1.5z"/><path d="M170 48 l1.5 4 4 1.5 -4 1.5 -1.5 4 -1.5 -4 -4 -1.5 4 -1.5z"/><path d="M30 70 l1.5 4 4 1.5 -4 1.5 -1.5 4 -1.5 -4 -4 -1.5 4 -1.5z"/></g>
 <g fill="#3b2466" opacity=".7"><rect x="150" y="62" width="64" height="7" rx="3.500"/><rect x="262" y="60" width="110" height="8" rx="4"/><rect x="288" y="74" width="78" height="7" rx="3.500"/></g>
 <path d="M0 118Q50 112 100 114 135 116 150 124Q165 134 178 152Q215 168 260 160 300 138 345 134 380 132 400 134V300H0z" fill="#3b2466"/>
 <g class="castle" transform="translate(25 16)">
@@ -234,7 +244,7 @@ button:focus-visible{outline:3px solid var(--moon);outline-offset:2px}
 <div id="intro" role="dialog" aria-modal="true" aria-labelledby="it">
 <div class="card"><h1 id="it">Il Calderone Sussurrante</h1>
 <button class="x" id="x" aria-label="Chiudi"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6L6 18" stroke="#1e252d" stroke-width="3.500" stroke-linecap="round"/></svg></button>
-<p>Il calderone ha qualcosa da dirti. Interrogalo con una pozione: ti risponderà con un monito o un consiglio.</p>
+<p><em>Il calderone ha qualcosa da dirti.</em> Interrogalo con una pozione: ti risponderà con un monito o un consiglio.</p>
 <p class="how">Lascia cadere due o tre offerte dal baule nel calderone, poi risveglia il fumo e ascolta ciò che sussurra.</p></div>
 <a href="#informativa" id="pl" class="pl">Informativa sulla privacy</a>
 </div>
@@ -392,6 +402,24 @@ coraggio:[
   "Il coraggio è l'unica cosa che ci separa dal buio. — Midsommar (2019)"
 ]
 };
+/* Abbinamento fisso 1:1 — ognuna delle 84 combinazioni (28 coppie + 56 terne di ingredienti) ha una sola frase, e ogni frase è usata una sola volta.
+   Chiave = indici ingredienti in ordine crescente; valore = tema:posizione in PH. Per cambiare un abbinamento scambia i valori tra due combinazioni. */
+const MAP={
+"0-1":"tempo:7","0-2":"amore:10","0-3":"futuro:10","0-4":"libertà:9","0-5":"scelta:9","0-6":"perdita:9",
+"0-7":"coraggio:8","1-2":"tempo:10","1-3":"tempo:6","1-4":"libertà:8","1-5":"scelta:8","1-6":"perdita:8",
+"1-7":"coraggio:9","2-3":"verità:8","2-4":"libertà:6","2-5":"scelta:6","2-6":"verità:9","2-7":"coraggio:7",
+"3-4":"futuro:0","3-5":"scelta:2","3-6":"futuro:1","3-7":"coraggio:4","4-5":"libertà:0","4-6":"perdita:0",
+"4-7":"libertà:5","5-6":"perdita:6","5-7":"coraggio:0","6-7":"perdita:1","0-1-2":"amore:6","0-1-3":"amore:7",
+"0-1-4":"amore:1","0-1-5":"tempo:3","0-1-6":"amore:0","0-1-7":"tempo:5","0-2-3":"amore:5","0-2-4":"amore:2",
+"0-2-5":"scelta:7","0-2-6":"amore:8","0-2-7":"coraggio:6","0-3-4":"amore:4","0-3-5":"futuro:3","0-3-6":"amore:9",
+"0-3-7":"futuro:2","0-4-5":"scelta:4","0-4-6":"perdita:4","0-4-7":"amore:3","0-5-6":"scelta:3","0-5-7":"coraggio:1",
+"0-6-7":"perdita:3","1-2-3":"tempo:2","1-2-4":"libertà:7","1-2-5":"scelta:5","1-2-6":"perdita:7","1-2-7":"coraggio:5",
+"1-3-4":"tempo:8","1-3-5":"tempo:9","1-3-6":"perdita:5","1-3-7":"tempo:0","1-4-5":"tempo:4","1-4-6":"perdita:2",
+"1-4-7":"libertà:4","1-5-6":"tempo:1","1-5-7":"coraggio:3","1-6-7":"coraggio:2","2-3-4":"verità:7","2-3-5":"verità:6",
+"2-3-6":"verità:5","2-3-7":"verità:4","2-4-5":"verità:3","2-4-6":"verità:2","2-4-7":"verità:1","2-5-6":"verità:0",
+"2-5-7":"scelta:1","2-6-7":"verità:10","3-4-5":"futuro:9","3-4-6":"futuro:8","3-4-7":"futuro:7","3-5-6":"futuro:6",
+"3-5-7":"futuro:5","3-6-7":"futuro:4","4-5-6":"libertà:3","4-5-7":"libertà:2","4-6-7":"libertà:1","5-6-7":"scelta:0"
+};
 const ic=g=>'<svg viewBox="0 0 64 64">'+g.s+'</svg>';
 const $=s=>document.querySelector(s),pot=$('#pot'),ghost=$('#ghost');
 let sel=[],busy=false,muted=false,ac,tm;
@@ -439,37 +467,42 @@ function renderCol(){const n=found();$('#cn').textContent=n+' / '+ALL.length+' e
 $('#grid').innerHTML=ALL.map((ids,i)=>{const r=store[kOf(ids)];return '<button class="sl'+(r?' on':'')+(r&&r.n?' nw':'')+'" data-i="'+i+'" aria-label="'+(r?nameOf(ids):'Elisir ancora sconosciuto')+'">'+mini(ids,!!r)+'<i>'+(r?ids.map(j=>'<b>'+ic(ING[j])+'</b>').join(''):'')+'</i></button>'}).join('')}
 let cyc=0;
 $('#grid').addEventListener('click',e=>{const b=e.target.closest('.sl.on');if(!b)return;const ids=ALL[+b.dataset.i],r=store[kOf(ids)];
-$('#pn').textContent=nameOf(ids);delete r.n;persist();b.classList.remove('nw');$('#pp').innerHTML=fmt(phr(r.f[cyc++%r.f.length]));$('.bt').style.setProperty('--pc','rgb('+mixc(ids)+')');$('#nw').hidden=true;view=true;$('#again').textContent='Torna al grimorio';$('#res').hidden=false;$('#again').focus()});
+$('#pn').textContent=nameOf(ids);delete r.n;persist();b.classList.remove('nw');$('#pp').innerHTML=fmt(phr(MAP[kOf(ids)]));$('.bt').style.setProperty('--pc','rgb('+mixc(ids)+')');$('#nw').hidden=true;view=true;$('#again').textContent='Torna al grimorio';$('#res').hidden=false;$('#again').focus()});
 $('#colb').onclick=()=>{delete store._u;persist();upd();$('#wq').hidden=true;$('#wp').hidden=false;renderCol();$('#col').hidden=false;$('#col').scrollTop=0;$('#cx').focus({preventScroll:true});const nn=$('.sl.nw');if(nn)nn.scrollIntoView({block:'center'})};
 $('#cx').onclick=()=>{$('#col').hidden=true;let ch=0;for(const k in store)if(store[k]&&store[k].n){delete store[k].n;ch=1}if(ch)persist()};
 $('#wp').onclick=()=>{$('#wp').hidden=true;$('#wq').hidden=false};
 $('#wn').onclick=()=>{$('#wq').hidden=true;$('#wp').hidden=false};
 $('#wy').onclick=()=>{store={};try{localStorage.removeItem(KEY)}catch(e){}upd();renderCol();$('#wq').hidden=true;$('#wp').hidden=false};
+/* Cielo stellato: una stella per cella di griglia con posizione casuale (ma fissa) dentro la cella,
+   così le stelle coprono in modo uniforme tutto lo schermo, qualunque sia il dispositivo */
+(function(){
+  const box=document.getElementById('stars');let last='';
+  function rnd(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+  function build(){
+    const W=window.innerWidth,H=window.innerHeight,cell=70,cols=Math.max(3,Math.round(W/cell)),rows=Math.max(4,Math.round(H/cell)),key=cols+'x'+rows;
+    if(key===last)return;last=key;
+    const r=rnd(20261031),f=document.createDocumentFragment();
+    for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){
+      if(r()<.08)continue;                       /* qualche cella vuota: aspetto più naturale */
+      const px=(x+.12+r()*.76)/cols*100,py=(y+.12+r()*.76)/rows*100,big=r()<.14,e=document.createElement(big?'b':'i');
+      const sz=big?9+r()*5:1.4+r()*1.6;
+      e.style.cssText='left:'+px.toFixed(2)+'%;top:'+py.toFixed(2)+'%;width:'+sz.toFixed(1)+'px;height:'+sz.toFixed(1)+'px;margin:-'+(sz/2).toFixed(1)+'px 0 0 -'+(sz/2).toFixed(1)+'px;opacity:'+(.45+r()*.45).toFixed(2);
+      f.appendChild(e)}
+    box.replaceChildren(f)}
+  build();let t;addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(build,120)})
+})();
+
 upd();
 function result(){
   pot.classList.remove('stir');
   const sortedSel = sel.slice().sort((a,b)=>a-b);
-  const key = kOf(sortedSel);
-  
-  // Generatore deterministico basato sulla chiave univoca degli ingredienti
-  let hash = 0;
-  for (let i = 0; i < key.length; i++) {
-    hash = (hash << 5) - hash + key.charCodeAt(i);
-    hash |= 0;
-  }
-  const absHash = Math.abs(hash);
-  
-  // Selezione della categoria e della frase in modo fisso e univoco per combinazione
-  const th = [...new Set(sortedSel.map(i => ING[i].t))];
-  const pick = th[absHash % th.length];
-  const L = PH[pick];
-  const vi = absHash % L.length;
+  const pick = MAP[kOf(sortedSel)];   // 'tema:posizione' — una sola frase per combinazione
   
   $('#pn').textContent = nameOf(sortedSel);
-  $('#pp').innerHTML = fmt(L[vi]);
+  $('#pp').innerHTML = fmt(phr(pick));
   view = false;
   $('#again').textContent = 'Un nuovo calderone';
-  $('#nw').hidden = !saveP(sortedSel, pick + ':' + vi);
+  $('#nw').hidden = !saveP(sortedSel, pick);
   
   $('.bt').style.setProperty('--pc', 'rgb(' + avg() + ')');
   $('#res').hidden = false;
